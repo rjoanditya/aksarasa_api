@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/assets/css/shared/style.css">
     <!-- endinject -->
     <!-- Layout style -->
-    <link rel="stylesheet" href="/assets/css/demo_1/style.css">
+    <link rel="stylesheet" href="/assets/css/demo_2/style.css">
     <!-- Layout style -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico" />
     <!-- CKEditor 5 -->
@@ -24,8 +24,6 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/balloon/ckeditor.js"></script>
 
-    <!-- Sweet Alert -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <style>

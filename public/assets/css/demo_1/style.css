@@ -359,6 +359,13 @@ footer {
         letter-spacing: 0.03rem;
         color: #565656; }
 
+
+/* Typography */
+.ck.ck-editor p{
+margin-top: 15px;
+text-align: justify;
+}
+
 /* Layout */
 .page-body {
   background: #fff; }

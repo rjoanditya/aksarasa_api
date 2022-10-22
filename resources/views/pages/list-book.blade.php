@@ -13,7 +13,7 @@
                         <h4>Library</h4>
                         <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
                     </div>
-                    <a href="add-book">
+                    <a href="admin/add-book">
                         <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
                             <i class="mdi mdi-library-plus"></i>Add New
                         </div>
@@ -43,8 +43,11 @@
                                     <tr id="$i">
                                         <td id="$i">Water Bottle
                                             <div>
-                                                <a href="/books/water-bottle">Edit |</a><a href="#"> Quick Edit |</a><a
-                                                    href="#" class="text-danger">
+                                                <a href="{{ route('books-detail',['slug' => 'persona'])}}">Edit |</a><a
+                                                    href="#">
+                                                    Quick
+                                                    Edit
+                                                    |</a><a href="#" class="text-danger">
                                                     Trash </a><a href="#">| View</a>
                                             </div>
                                         </td>
@@ -62,7 +65,7 @@
                                     <tr>
                                         <td>Persona
                                             <div>
-                                                <a href="/books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
+                                                <a href="books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
                                                     href="#" class="text-danger">
                                                     Trash </a><a href="#">| View</a>
                                             </div>
@@ -86,22 +89,7 @@
             </div>
         </div>
         <!-- content viewport ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-            <div class="row">
-                <div class="col-sm-6 text-center text-sm-right order-sm-1">
-                    <ul class="text-gray">
-                        <li><a href="#">Terms of use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-6 text-center text-sm-left ml-5 mt-3 mt-sm-0">
-                    <small class="text-muted d-block">Copyright © 2022 <a href="#" target="_blank">Aksarasa.id</a>.
-                        All rights reserved</small>
-                </div>
-            </div>
-        </footer>
-        <!-- partial -->
+        @include('/layout/partials/_footer')
     </div>
     <!-- page content ends -->
     </div>

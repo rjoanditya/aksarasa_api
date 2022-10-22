@@ -7493,6 +7493,10 @@ p {
   margin-bottom: 0; }
 
 /* Typography */
+.ck.ck-editor p{
+  color: #6c757d;
+  margin-bottom: 5rem;
+}
 body,
 html {
   -webkit-font-smoothing: antialiased;

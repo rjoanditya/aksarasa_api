@@ -4,18 +4,18 @@
     <div class="sidebar">
         <div class="user-profile">
             <div class="display-avatar animated-avatar">
-                <img class="profile-img img-lg rounded-circle" src="../assets/images/profile/male/image_1.png"
+                <img class="profile-img img-lg rounded-circle" src="/assets/images/profile/male/image_1.png"
                     alt="profile image">
             </div>
             <div class="info-wrapper">
-                <p class="user-name">Aksarasa</p>
-                <p class="">Admin</p>
+                <p class="user-name">{{ session()->get('nickname')}}</p>
+                <p class="">{{ session()->get('role')}}</p>
             </div>
         </div>
         <ul class="navigation-menu">
             <li class="nav-category-divider">MAIN</li>
             <li>
-                <a href="/index">
+                <a href="{{route('dashboard')}}">
                     <span class="link-title">Dashboard</span>
                     <i class="mdi mdi-gauge link-icon"></i>
                 </a>
@@ -27,16 +27,16 @@
                 </a>
                 <ul class="collapse navigation-submenu" id="books">
                     <li>
-                        <a href="/books">All Books</a>
+                        <a href="{{route('books')}}">All Books</a>
                     </li>
                     <li>
-                        <a href="/add-book">Add New</a>
+                        <a href="{{route('add-book')}}">Add New</a>
                     </li>
                     <li>
-                        <a href="/categories">Categories</a>
+                        <a href="{{route('categories')}}">Categories</a>
                     </li>
                     <li>
-                        <a href="/tags">Tags</a>
+                        <a href="{{route('tags')}}">Tags</a>
                     </li>
 
                 </ul>
@@ -48,7 +48,7 @@
                 </a>
                 <ul class="collapse navigation-submenu" id="audio">
                     <li>
-                        <a href="/audio">All Audiobook</a>
+                        <a href="{{route('audio')}}">All Audiobook</a>
                     </li>
                     <li>
                         <a href="#">Add New</a>
@@ -77,7 +77,7 @@
             </li>
         </ul>
         <div class="sidebar-upgrade-banner">
-            <a class="btn upgrade-btn" target="_blank" href="#"> <i class="pr-3 mdi mdi-logout-variant"></i>Log
+            <a class="btn upgrade-btn" href="{{route('logout')}}"> <i class="pr-3 mdi mdi-logout-variant"></i>Log
                 out</a>
         </div>
     </div>
