@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,41 +15,134 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::controller(IndexController::class)->group(function () {
+/**
+ * Route Management Books
+ * GET
+ * /books
+ * /books/part/(id)
+ * /books/(slug)
+ * /books/add
+ * 
+ * DELETE
+ * /books/(id)
+ * /books/part/(id)
+ * 
+ * POST
+ * /books
+ * /books/part
+ * 
+ * PUT
+ * /books/(id)
+ * /books/part/(id)
+ */
 
-    Route::get('/', 'index');
-    Route::get('/index', 'index');
+
+Route::get('/', [AuthController::class, 'dashboard']);
+Route::get('login', [AuthController::class, 'login'])->name('ak-login');
+Route::post('login', [AuthController::class, 'storeLogin'])->name('login');
+Route::get('signup', [AuthController::class, 'signup'])->name('ak-signup');
+Route::post('signup', [AuthController::class, 'storeSignup'])->name('signup');
+
+Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
 
     /**
-     * Route Management Books
-     * GET
-     * /books
-     * /books/part/(id)
-     * /books/(slug)
-     * /books/add
+     * Routes Auth Narrators Dashboard
      * 
-     * DELETE
-     * /books/(id)
-     * /books/part/(id)
-     * 
-     * POST
-     * /books
-     * /books/part
-     * 
-     * PUT
-     * /books/(id)
-     * /books/part/(id)
+     * /ak-narrator
      */
-    Route::get('/books', 'getBooks');
+    Route::group(['prefix' => 'ak-narrator'], function () {
 
-    // slug (book)
-    Route::get('/books/{slug}', 'getBook');
-    Route::get('/add-book', 'addBooks');
+        // Route::get('/', [AuthController::class, 'dashboard']);
+        Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-    // id (book), bukan part
-    Route::get('/add-part/{id}', 'addParts');
-    Route::get('/categories', 'getCategories');
-    Route::get('/tags', 'getTags');
-    Route::get('/audio', 'getAudios');
-    Route::get('/login', 'login');
+        Route::get('/books', [Controller::class, 'getBooks'])->name('books');
+
+        /**
+         * {slug} dari buku
+         */
+        Route::get('/books/{slug}', [Controller::class, 'getBook'])->name('books-detail');
+        Route::get('/add-book', [Controller::class, 'addBooks'])->name('add-book');
+
+        /**
+         * {id} dari buku
+         */
+        Route::get('/add-part/{id}', [Controller::class, 'addParts'])->name('add-part');
+        Route::get('/categories', [Controller::class, 'getCategories'])->name('categories');
+        Route::get('/tags', [Controller::class, 'getTags'])->name('tags');
+        Route::get('/audio', [Controller::class, 'getAudios'])->name('audio');
+
+        /**
+         * {id} dari part
+         */
+        Route::get('/part/{id}', [Controller::class, 'getPart'])->name('part');
+    });
+
+    /**
+     * Routes Auth Admin Dashboard
+     * 
+     * /ak-admin
+     */
+    Route::group(['prefix' => 'ak-admin'], function () {
+
+        Route::get('/', [AuthController::class, 'dashboard']);
+        Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::get('/books', [Controller::class, 'getBooks'])->name('books');
+
+        /**
+         * {slug} dari buku
+         */
+        Route::get('/books/{slug}', [Controller::class, 'getBook'])->name('books-detail');
+        Route::get('/add-book', [Controller::class, 'addBooks'])->name('add-book');
+
+        /**
+         * {id} dari buku
+         */
+        Route::get('/add-part/{id}', [Controller::class, 'addParts'])->name('add-part');
+        Route::get('/categories', [Controller::class, 'getCategories'])->name('categories');
+        Route::get('/tags', [Controller::class, 'getTags'])->name('tags');
+        Route::get('/audio', [Controller::class, 'getAudios'])->name('audio');
+
+
+        /**
+         * {id} dari part
+         */
+        Route::get('/part/{id}', [Controller::class, 'getPart'])->name('part');
+    });
+
+    /**
+     * Routes Auth Authors Dashboard
+     * 
+     * /ak-authors
+     */
+    Route::group(['prefix' => 'ak-authors'], function () {
+
+        Route::get('/', [AuthController::class, 'dashboard']);
+        Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+        Route::get('/books', [Controller::class, 'getBooks'])->name('books');
+
+        /**
+         * {slug} dari buku
+         */
+        Route::get('/books/{slug}', [Controller::class, 'getBook'])->name('books-detail');
+        Route::get('/add-book', [Controller::class, 'addBooks'])->name('add-book');
+
+        /**
+         * {id} dari buku
+         */
+        Route::get('/add-part/{id}', [Controller::class, 'addParts'])->name('add-part');
+        Route::get('/categories', [Controller::class, 'getCategories'])->name('categories');
+        Route::get('/tags', [Controller::class, 'getTags'])->name('tags');
+        Route::get('/audio', [Controller::class, 'getAudios'])->name('audio');
+
+
+        /**
+         * {id} dari part
+         */
+        Route::get('/part/{id}', [Controller::class, 'getPart'])->name('part');
+    });
 });
