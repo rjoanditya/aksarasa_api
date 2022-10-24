@@ -13,24 +13,26 @@ class AuthController extends Controller
 {
     public function dashboard()
     {
-        $val = session()->get('username');
-
-        $user = User::where('username', $val)
-            ->orWhere('email', $val)
-            ->leftJoin('lib_roles', 'lib_users.roles_id', '=', 'lib_roles.id')
-            ->select('lib_users.*', 'lib_roles.name AS role')
-            ->first();
-        $users = [
-            'isLogin'   => 'true',
-            'email'     => $user->email,
-            'username'  => $user->username,
-            'nickname'  => $user->nickname,
-            'age'       => $user->age,
-            'role'      => $user->role,
-        ];
-        session($users);
-
         if (session('isAdmin') || session('isNarrators') || session('isAuthors')) {
+
+            $val = session()->get('username');
+
+            $user = User::where('username', $val)
+                ->orWhere('email', $val)
+                ->leftJoin('lib_roles', 'lib_users.roles_id', '=', 'lib_roles.id')
+                ->select('lib_users.*', 'lib_roles.name AS role')
+                ->first();
+            $users = [
+                'isLogin'   => 'true',
+                'id'        => $user->id,
+                'email'     => $user->email,
+                'username'  => $user->username,
+                'nickname'  => $user->nickname,
+                'age'       => $user->age,
+                'role'      => $user->role,
+            ];
+            session($users);
+
             return view('pages.home');
         } else {
             return redirect('/login');
@@ -87,9 +89,25 @@ class AuthController extends Controller
         return view('auth.signup');
     }
 
-    public function storeSignup()
+    public function storeSignup(Request $request)
     {
-        return redirect('login');
+        $data = [
+            'email' => $request->email,
+            'username' => $request->username,
+            'nickname' => $request->nickname,
+            'password' => Hash::make($request->password),
+        ];
+        // dd($data);
+        User::insert([
+            'email' => $request->email,
+            'username' => $request->username,
+            'nickname' => $request->nickname,
+            'password' => Hash::make($request->password),
+            'roles_id' => $request->role,
+            'status_activation'   => $request->status
+        ]);
+        // $password = Hash::make($request->password);
+        return redirect('login')->with('success', 'Thanks for filling out our form. Your account is activated now!');
     }
 
     public function logout(Request $request)

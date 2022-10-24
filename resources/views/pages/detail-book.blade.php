@@ -31,122 +31,148 @@
                         <div class="grid-body">
                             <div class="item-wrapper">
                                 <div class="row mb-3">
-                                    <div class="col-md-8 mx-auto">
-                                        <div class="form-group row showcase_row_area">
-                                            <input hidden type="file" class="custom-file-input" id="coverFile">
-                                            <div class="col-md-3 showcase_text_area">
-                                                <label for="inputType1">Title</label>
+                                    <div class="col-md-8 mx-auto d-flex">
+                                        <form action="">
+                                            <div class="form-group row showcase_row_area">
+                                                <input hidden type="file" class="custom-file-input" id="coverFile">
+                                                <div class="col-md-3 showcase_text_area">
+                                                    <label for="inputType1">Title</label>
+                                                </div>
+                                                <div class="col-md-9 showcase_content_area">
+                                                    <input type="text" class="form-control" id="inputType1"
+                                                        placeholder="Title Here" value="{{$post->title}}">
+                                                </div>
                                             </div>
-                                            <div class="col-md-9 showcase_content_area">
-                                                <input type="text" class="form-control" id="inputType1"
-                                                    placeholder="Title Here">
+                                            <div class="form-group row showcase_row_area">
+                                                <div class="col-md-3 showcase_text_area">
+                                                    <label for="inputType9">Description</label>
+                                                </div>
+                                                <div class="col-md-9 showcase_content_area">
+                                                    <textarea class="form-control" id="inputType9" cols="12"
+                                                        rows="5">{{$post->description}}</textarea>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row showcase_row_area">
-                                            <div class="col-md-3 showcase_text_area">
-                                                <label>Categories</label>
+                                            <div class="row showcase_row_area">
+                                                <div class="col-md-3 showcase_text_area">
+                                                    <label>Categories</label>
+                                                </div>
+                                                <div class="col-md-9 form-inline">
+                                                    <div class="checkbox mb-3">
+                                                        <label>
+                                                            <input type="checkbox" value="1" class="form-check-input"
+                                                                checked="true">
+                                                            Romance <i class="input-frame"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox mb-3">
+                                                        <label>
+                                                            <input type="checkbox" class="form-check-input">
+                                                            Fun Fiction <i class="input-frame"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox mb-3">
+                                                        <label>
+                                                            <input type="checkbox" class="form-check-input"> Thriller <i
+                                                                class="input-frame"></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox mb-3">
+                                                        <label>
+                                                            <input type="checkbox" class="form-check-input"> History <i
+                                                                class="input-frame"></i>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-9 showcase_content_area">
-                                                <select class="custom-select">
-                                                    <option selected="" disabled class="pl-4 text-muted"
-                                                        style="font-size: 13px;"">Categories</option>
-                                            <option value=" 1">Horor</option>
-                                                    <option value="2">Romance</option>
-                                                    <option value="3">Fiction</option>
-                                                </select>
+                                            <div class="row showcase_row_area align-items-end">
+                                                <div class="col-md-3 showcase_text_area"></div>
+                                                <div class="col-md-9">
+                                                    <input class="btn rounded-pill btn-primary px-5 " type="submit"
+                                                        value="Save">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row showcase_row_area">
-                                            <div class="col-md-3 showcase_text_area">
-                                                <label for="inputType9">Description</label>
-                                            </div>
-                                            <div class="col-md-9 showcase_content_area">
-                                                <textarea class="form-control" id="inputType9" cols="12"
-                                                    rows="5"></textarea>
-                                            </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <!-- url with parameters  -->
-                    <a class="mt-5" href="{{route('add-part', ['id' => 1]) }}">
-                        <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
-                            <i class="mdi mdi-library-plus"></i>Add Part
-                        </div>
-                    </a>
-                    <div class="col-12 item-wrapper">
-                        <div class="table-responsive">
-                            <table class="table info-table">
-                                <thead>
-                                    <tr>
-                                        <th>Title</th>
-                                        <th>Authors</th>
-                                        <th>Parts</th>
-                                        <th class="text-center">Audio</th>
-                                        <th>Date</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="$i">
-                                        <td id="$i">Prolog
-                                            <div>
-                                                <a href="books/water-bottle">Edit |</a><a href="#"> Quick Edit
-                                                    |</a><a href="#" class="text-danger">
-                                                    Trash </a><a href="#">| View</a>
-                                            </div>
-                                        </td>
-                                        <td>Zahra Amelia</td>
-                                        <td>1</td>
-                                        <td>
-                                            <audio controls
-                                                src="/assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
-                                        </td>
-                                        <td>
-                                            <p>Published</p>
-                                            June 25, 2022
-                                        </td>
-                                        <td class="actions">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mereka Bilang itu Mudah tapi Tetap Saja Aku Ingin Menyerah
-                                            <div>
-                                                <a href="books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
-                                                    href="#" class="text-danger">
-                                                    Trash </a><a href="#">| View</a>
-                                            </div>
-                                        </td>
-                                        <td>Zahra Amelia</td>
-                                        <td>2</td>
-                                        <td>
-                                            <audio controls
-                                                src="/assets/audio/mobydick_013_015_melville_64kb.mp3"></audio>
-                                        </td>
-                                        <td>
-                                            <p>Last Modified</p>
-                                            October 12, 2022
-                                        </td>
-                                        <td class="actions">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <!-- url with parameters  -->
+                        <a class="mt-5" href="{{route('add-part', ['id' => 1]) }}">
+                            <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
+                                <i class="mdi mdi-library-plus"></i>Add Part
+                            </div>
+                        </a>
+                        <div class="col-12 item-wrapper">
+                            <div class="table-responsive">
+                                <table class="table info-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Authors</th>
+                                            <th>Parts</th>
+                                            <th class="text-center">Audio</th>
+                                            <th>Date</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="$i">
+                                            <td id="$i">Prolog
+                                                <div>
+                                                    <a href="books/water-bottle">Edit |</a><a href="#"> Quick Edit
+                                                        |</a><a href="#" class="text-danger">
+                                                        Trash </a><a href="#">| View</a>
+                                                </div>
+                                            </td>
+                                            <td>Zahra Amelia</td>
+                                            <td>1</td>
+                                            <td>
+                                                <audio controls
+                                                    src="/assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
+                                            </td>
+                                            <td>
+                                                <p>Published</p>
+                                                June 25, 2022
+                                            </td>
+                                            <td class="actions">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mereka Bilang itu Mudah tapi Tetap Saja Aku Ingin Menyerah
+                                                <div>
+                                                    <a href="books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
+                                                        href="#" class="text-danger">
+                                                        Trash </a><a href="#">| View</a>
+                                                </div>
+                                            </td>
+                                            <td>Zahra Amelia</td>
+                                            <td>2</td>
+                                            <td>
+                                                <audio controls
+                                                    src="/assets/audio/mobydick_013_015_melville_64kb.mp3"></audio>
+                                            </td>
+                                            <td>
+                                                <p>Last Modified</p>
+                                                October 12, 2022
+                                            </td>
+                                            <td class="actions">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- content viewport ends -->
+            @include('/layout/partials/_footer')
         </div>
-        <!-- content viewport ends -->
-        @include('/layout/partials/_footer')
-    </div>
-    <!-- page content ends -->
+        <!-- page content ends -->
     </div>
     <!--page body ends -->
     <!-- Scripts JS here -->

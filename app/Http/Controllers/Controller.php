@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -25,7 +28,14 @@ class Controller extends BaseController
      */
     public function getBooks()
     {
-        return view('pages/list-book');
+        $post = Post::get();
+        $user = User::get();
+        $category = Category::join('post_categories', 'lib_categories.id', '=', 'post_categories.category_id')->get();
+
+        // dd($category);
+
+
+        return view('pages/list-book', compact('post', 'category', 'user'));
     }
     public function getPart()
     {
@@ -35,9 +45,14 @@ class Controller extends BaseController
     /**
      * Function Detail of the Book
      */
-    public function getBook()
+    public function getBook($slug)
     {
-        return view('pages/detail-book');
+        // dd($slug);
+        $post = Post::where('slug', 'like', $slug)->get()[0];
+        $post_categories = Post::get();
+        $category = Category::get();
+        // dd($post_categories);
+        return view('pages/detail-book', compact('post', 'post_categories', 'category'));
     }
 
     public function addBooks()

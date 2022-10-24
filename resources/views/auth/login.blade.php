@@ -22,6 +22,10 @@
                                         @if(session('message'))
                                         <div class="swal" status="warning" message="<?= session('message') ?>"></div>
                                         @endif
+
+                                        @if(session('success'))
+                                        <div class="swal" status="success" message="<?= session('success') ?>"></div>
+                                        @endif
                                     </div>
                                     <div class="form-group input-rounded">
                                         <input required type="text" name="username" id="username" class="form-control"

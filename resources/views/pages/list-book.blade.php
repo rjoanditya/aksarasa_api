@@ -19,16 +19,18 @@
                         </div>
                     </a>
                     <div class="col-12">
-                        <a href="#" class="text-small">All (2) |</a>
-                        <a href="#" class="text-small">Mine (1) |</a>
-                        <a href="#" class="text-small">Published (2) |</a>
-                        <a href="#" class="text-small">Draft (0)</a>
+                        <a href="#" class="text-small">All ({{ count($post)}}) |</a>
+                        <a href="#" class="text-small">Mine
+                            ({{count($post->where('created_by','==',session()->get('id')))}}) |</a>
+                        <a href="#" class="text-small">Published
+                            ({{count($post->where('isShowed','==','true'))}}) |</a>
+                        <a href="#" class="text-small">Draft ({{count($post->where('isShowed','==','false'))}})</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 item-wrapper">
                         <div class="table-responsive">
-                            <table class="table info-table">
+                            <table class="table info-table table-hover">
                                 <thead>
                                     <tr>
                                         <th>Title</th>
@@ -40,47 +42,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr id="$i">
-                                        <td id="$i">Water Bottle
-                                            <div>
-                                                <a href="{{ route('books-detail',['slug' => 'persona'])}}">Edit |</a><a
-                                                    href="#">
-                                                    Quick
-                                                    Edit
-                                                    |</a><a href="#" class="text-danger">
-                                                    Trash </a><a href="#">| View</a>
-                                            </div>
-                                        </td>
-                                        <td>Admin</td>
-                                        <td>Horor</td>
-                                        <td>14</td>
-                                        <td>
-                                            <p>Published</p>
-                                            June 25, 2022
-                                        </td>
-                                        <td class="actions">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </td>
-                                    </tr>
+                                    @foreach ($post as $p)
                                     <tr>
-                                        <td>Persona
+                                        <td>{{$p->title}}
                                             <div>
-                                                <a href="books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
-                                                    href="#" class="text-danger">
+                                                <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit |</a><a
+                                                    href="#"> Quick
+                                                    Edit |</a><a href="#" class="text-danger">
                                                     Trash </a><a href="#">| View</a>
                                             </div>
                                         </td>
-                                        <td>Zahra Amelia</td>
-                                        <td>Romance</td>
-                                        <td>298</td>
+                                        <td>{{$user->where('id','=',$p->created_by)->first()['nickname']}}</td>
                                         <td>
+                                            <!-- </?php $category->where('post_id', '=', $p->id) ?> -->
+                                            @foreach($category->where('post_id','=',$p->id) as $c)
+                                            {{$c->name}},
+                                            @endforeach
+                                        </td>
+                                        <td>{{ count($post)}}</td>
+                                        <td>
+                                            @if($p->updated_at == null)
+                                            <p>Published</p>
+                                            {{date_format($p->created_at,"F d, Y")}}
+                                            @else
                                             <p>Last Modified</p>
-                                            October 12, 2022
+                                            {{date_format($p->updated_at,"F d, Y")}}
+                                            @endif
+
                                         </td>
                                         <td class="actions">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

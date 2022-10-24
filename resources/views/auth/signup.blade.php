@@ -47,14 +47,6 @@
                                     </div>
                                     <input type="hidden" name="role" value="3">
                                     <input type="hidden" name="status" value="true">
-                                    <!-- <div class="form-inline">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" class="form-check-input" />Remember me <i
-                                                    class="input-frame"></i>
-                                            </label>
-                                        </div>
-                                    </div> -->
                                     <button type="submit" value="Signup"
                                         class="btn btn-primary btn-block">Signup</button>
                                 </form>
@@ -63,9 +55,6 @@
                                         <!-- <i class="mdi mdi-keyboard-backspace"></i> -->
                                         Login
                                     </a>
-
-
-
                                 </div>
                             </div>
                         </div>
