@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Part;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -31,15 +32,16 @@ class Controller extends BaseController
         $post = Post::get();
         $user = User::get();
         $category = Category::join('post_categories', 'lib_categories.id', '=', 'post_categories.category_id')->get();
-
-        // dd($category);
-
-
-        return view('pages/list-book', compact('post', 'category', 'user'));
+        $parts = Part::join('lib_parts', 'lib_parts.id', 'posts_parts.parts_id')->get();
+        // dd($parts);
+        return view('pages/list-book', compact('post', 'category', 'user', 'parts'));
     }
-    public function getPart()
+    public function getPart($id)
     {
-        return view('pages/part');
+        $post_part = Part::where('parts_id', $id);
+        $parts = $post_part->join('lib_parts', 'lib_parts.id', 'posts_parts.parts_id')->get()[0];
+        // dd($parts);
+        return view('pages/part', compact('parts'));
     }
 
     /**
@@ -49,17 +51,22 @@ class Controller extends BaseController
     {
         // dd($slug);
         $post = Post::where('slug', 'like', $slug)->get()[0];
-        $post_categories = Post::get();
+        $post_users = Post::where('slug', 'like', $slug)->join('lib_users', 'lib_users.id', 'lib_post.created_by')->get()[0];
+        $post_categories = Post::join('post_categories', 'lib_post.id', 'post_categories.post_id')
+            ->select('post_categories.*')
+            ->where('post_id', $post->id)
+            ->get();
         $category = Category::get();
-        // dd($post_categories);
-        return view('pages/detail-book', compact('post', 'post_categories', 'category'));
+        $parts = Part::join('lib_parts', 'lib_parts.id', 'posts_parts.parts_id')->where('post_id', $post->id)->get();
+        // dd($parts);
+        return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users'));
     }
 
     public function addBooks()
     {
         return view('pages/add-book');
     }
-    public function addParts($id)
+    public function addParts($slug)
     {
         return view('pages/add-part');
     }

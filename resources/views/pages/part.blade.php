@@ -36,8 +36,9 @@ if (isset($_GET['submit_text'])) {
                                                             class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
-                                                    <input type="text" name="title" class="form-control" id="inputType1"
-                                                        placeholder="Title of Part" required>
+                                                    <input type="text" name="title" required class="form-control"
+                                                        id="inputType1" value="{{$parts->title}}"
+                                                        placeholder="Title of Part">
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area mb-4">
@@ -59,7 +60,8 @@ if (isset($_GET['submit_text'])) {
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
                                                     <textarea type="text" name="content" class="form-control"
-                                                        style="min-height: 500px;" id="inputEditor" required></textarea>
+                                                        style="min-height: 500px;" id="inputEditor"
+                                                        required>{{$parts->content}}</textarea>
                                                     <div class="mt-3">
                                                         <input class="btn btn-primary rounded-pill mb-3 m-0"
                                                             type="submit" value="Submit" name="submit_text">

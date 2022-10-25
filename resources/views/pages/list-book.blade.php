@@ -44,6 +44,7 @@
                                 <tbody>
                                     @foreach ($post as $p)
                                     <tr>
+                                        <!-- title -->
                                         <td>{{$p->title}}
                                             <div>
                                                 <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit |</a><a
@@ -52,14 +53,17 @@
                                                     Trash </a><a href="#">| View</a>
                                             </div>
                                         </td>
+                                        <!-- nickname -->
                                         <td>{{$user->where('id','=',$p->created_by)->first()['nickname']}}</td>
+                                        <!-- Categories -->
                                         <td>
                                             <!-- </?php $category->where('post_id', '=', $p->id) ?> -->
                                             @foreach($category->where('post_id','=',$p->id) as $c)
                                             {{$c->name}},
                                             @endforeach
                                         </td>
-                                        <td>{{ count($post)}}</td>
+                                        <!-- Count Part -->
+                                        <td>{{ count($parts->where('post_id',$p->id))}}</td>
                                         <td>
                                             @if($p->updated_at == null)
                                             <p>Published</p>

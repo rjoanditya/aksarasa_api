@@ -30,9 +30,10 @@ class AuthController extends Controller
                 'nickname'  => $user->nickname,
                 'age'       => $user->age,
                 'role'      => $user->role,
+                'prefix'    => 'ak-' . $user->role
             ];
             session($users);
-
+            // dd(session()->get('prefix'));
             return view('pages.home');
         } else {
             return redirect('/login');
@@ -59,7 +60,7 @@ class AuthController extends Controller
                     'isAdmin' => 'true',
                     'username' => $request->username,
                 ]);
-                return redirect('ak-admin/dashboard');
+                return redirect('users/dashboard');
             }
         }
         if ($data->roles_id == 2) {
@@ -69,7 +70,7 @@ class AuthController extends Controller
                     'username' => $request->username,
                 ]);
                 // dd(session('isNarrators'));
-                return redirect('ak-narrator/dashboard');
+                return redirect('users/dashboard');
             }
         }
         if ($data->roles_id == 3) {
@@ -78,7 +79,7 @@ class AuthController extends Controller
                     'isAuthors' => 'true',
                     'username' => $request->username,
                 ]);
-                return redirect('/ak-authors/dashboard');
+                return redirect('users/dashboard');
             }
         }
         return redirect('login')->with('message', 'the Password is not correct');

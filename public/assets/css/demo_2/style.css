@@ -7495,7 +7495,9 @@ p {
 /* Typography */
 .ck.ck-editor p{
   color: #6c757d;
-  margin-bottom: 5rem;
+  margin-top: 15px;
+  text-align: justify;
+    
 }
 body,
 html {

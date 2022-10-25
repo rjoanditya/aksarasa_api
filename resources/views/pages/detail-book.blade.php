@@ -31,7 +31,7 @@
                         <div class="grid-body">
                             <div class="item-wrapper">
                                 <div class="row mb-3">
-                                    <div class="col-md-8 mx-auto d-flex">
+                                    <div class="col-md-8 mx-auto">
                                         <form action="">
                                             <div class="form-group row showcase_row_area">
                                                 <input hidden type="file" class="custom-file-input" id="coverFile">
@@ -57,38 +57,34 @@
                                                     <label>Categories</label>
                                                 </div>
                                                 <div class="col-md-9 form-inline">
+                                                    @foreach ($category as $c)
                                                     <div class="checkbox mb-3">
                                                         <label>
-                                                            <input type="checkbox" value="1" class="form-check-input"
-                                                                checked="true">
-                                                            Romance <i class="input-frame"></i>
+                                                            @foreach($post_categories as $pc)
+                                                            <?php
+                                                            if ($c->id == $pc['category_id']) :
+                                                            ?>
+                                                            <input type="checkbox" value="{{$c->id}}" checked
+                                                                class="form-check-input">
+                                                            <i class="input-frame"></i>
+                                                            <?php else : ?>
+                                                            <input type="checkbox" value="{{$c->id}}"
+                                                                class="form-check-input">
+                                                            <i class="input-frame"></i>
+                                                            <?php endif ?>
+                                                            @endforeach
+                                                            {{$c->name}}
                                                         </label>
                                                     </div>
-                                                    <div class="checkbox mb-3">
-                                                        <label>
-                                                            <input type="checkbox" class="form-check-input">
-                                                            Fun Fiction <i class="input-frame"></i>
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox mb-3">
-                                                        <label>
-                                                            <input type="checkbox" class="form-check-input"> Thriller <i
-                                                                class="input-frame"></i>
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox mb-3">
-                                                        <label>
-                                                            <input type="checkbox" class="form-check-input"> History <i
-                                                                class="input-frame"></i>
-                                                        </label>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
-                                            <div class="row showcase_row_area align-items-end">
+                                            <div class="row showcase_row_area">
                                                 <div class="col-md-3 showcase_text_area"></div>
                                                 <div class="col-md-9">
-                                                    <input class="btn rounded-pill btn-primary px-5 " type="submit"
-                                                        value="Save">
+                                                    <input
+                                                        class="btn rounded-pill btn-primary px-5 d-flex align-self-end"
+                                                        type="submit" value="Save">
                                                 </div>
                                             </div>
                                         </form>
@@ -99,7 +95,7 @@
                     </div>
                     <div class="row">
                         <!-- url with parameters  -->
-                        <a class="mt-5" href="{{route('add-part', ['id' => 1]) }}">
+                        <a class="mt-5" href="{{route('add-part',['slug'=>$post->slug])}}">
                             <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
                                 <i class="mdi mdi-library-plus"></i>Add Part
                             </div>
@@ -118,50 +114,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr id="$i">
-                                            <td id="$i">Prolog
+                                        @foreach($parts as $part)
+                                        <tr>
+                                            <td>{{$part->title}}
                                                 <div>
-                                                    <a href="books/water-bottle">Edit |</a><a href="#"> Quick Edit
-                                                        |</a><a href="#" class="text-danger">
+                                                    <a href="{{route('part', ['id' => $part->id])}}">Edit |</a><a
+                                                        href="#">
+                                                        Quick Edit |</a><a href="#" class="text-danger">
                                                         Trash </a><a href="#">| View</a>
                                                 </div>
                                             </td>
-                                            <td>Zahra Amelia</td>
-                                            <td>1</td>
+                                            <td>{{$post_users->nickname}}</td>
+                                            <td><?php
+                                                $i = 1;
+                                                echo $i++;
+                                                ?></td>
                                             <td>
                                                 <audio controls
                                                     src="/assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
                                             </td>
                                             <td>
+                                                @if($part->updated_at == null)
                                                 <p>Published</p>
-                                                June 25, 2022
-                                            </td>
-                                            <td class="actions">
-                                                <i class="mdi mdi-dots-vertical"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mereka Bilang itu Mudah tapi Tetap Saja Aku Ingin Menyerah
-                                                <div>
-                                                    <a href="books/persona">Edit |</a><a href="#"> Quick Edit |</a><a
-                                                        href="#" class="text-danger">
-                                                        Trash </a><a href="#">| View</a>
-                                                </div>
-                                            </td>
-                                            <td>Zahra Amelia</td>
-                                            <td>2</td>
-                                            <td>
-                                                <audio controls
-                                                    src="/assets/audio/mobydick_013_015_melville_64kb.mp3"></audio>
-                                            </td>
-                                            <td>
+                                                {{date_format($part->created_at,"F d, Y")}}
+                                                @else
                                                 <p>Last Modified</p>
-                                                October 12, 2022
+                                                {{date_format($part->updated_at,"F d, Y")}}
+                                                @endif
                                             </td>
                                             <td class="actions">
                                                 <i class="mdi mdi-dots-vertical"></i>
                                             </td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
