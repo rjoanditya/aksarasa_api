@@ -23,7 +23,8 @@ if (isset($_GET['submit_text'])) {
                         <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
                     </div>
                 </div>
-                <form action="" method="GET">
+                <form action="{{route('adding-part')}}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="grid col-md-12">
                             <div class="grid-body">

@@ -13,11 +13,17 @@
                         <h4>Library</h4>
                         <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
                     </div>
-                    <a href="admin/add-book">
+                    <a href="{{route('add-book')}}">
                         <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
                             <i class="mdi mdi-library-plus"></i>Add New
                         </div>
                     </a>
+                    @if(session('success'))
+                    <div class="swal" status="success" message="<?= session('success') ?>"></div>
+                    @endif
+                    @if(session('message'))
+                    <div class="swal" status="warning" message="<?= session('message') ?>"></div>
+                    @endif
                     <div class="col-12">
                         <a href="#" class="text-small">All ({{ count($post)}}) |</a>
                         <a href="#" class="text-small">Mine
@@ -47,10 +53,17 @@
                                         <!-- title -->
                                         <td>{{$p->title}}
                                             <div>
-                                                <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit |</a><a
-                                                    href="#"> Quick
-                                                    Edit |</a><a href="#" class="text-danger">
-                                                    Trash </a><a href="#">| View</a>
+                                                <form action="{{route('destroyBooks', ['id' => $p->id])}}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit |</a>
+                                                    <a href="#"> Quick Edit |</a>
+                                                    <input type="submit"
+                                                        style="background: none!important; border: none;padding: 0!important;"
+                                                        class="text-danger" value="Trash">
+                                                    <a href="#">| View</a>
+                                                </form>
                                             </div>
                                         </td>
                                         <!-- nickname -->
@@ -94,5 +107,19 @@
     <!--page body ends -->
     <!-- Scripts JS here -->
     @include('/layout/partials/_scripts')
+    <script>
+    let message = $(".swal").attr('message')
+    let icon = $(".swal").attr('status')
+    if (message) {
+        swal({
+            // title: "Good job!",
+            text: message,
+            icon: icon,
+            button: false,
+            closeOnEsc: true,
+            timer: 2000,
+        })
+    }
+    </script>
 </body>
 @endsection

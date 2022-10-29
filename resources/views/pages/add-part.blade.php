@@ -23,21 +23,23 @@ if (isset($_GET['submit_text'])) {
                         <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
                     </div>
                 </div>
-                <form action="" method="GET">
-                    <div class="row">
-                        <div class="grid col-md-12">
-                            <div class="grid-body">
-                                <div class="item-wrapper">
-                                    <div class="row mb-3">
-                                        <div class="col-md-12 mx-auto">
+                <div class="row">
+                    <div class="grid col-md-12">
+                        <div class="grid-body">
+                            <div class="item-wrapper">
+                                <div class="row mb-3">
+                                    <div class="col-md-12 mx-auto">
+                                        <form action="{{ route('adding-part') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="slug" value="{{$post->slug}}">
                                             <div class="form-group row showcase_row_area">
                                                 <div class="col-md-1 showcase_text_area">
                                                     <label for="inputType1">Title<span
                                                             class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
-                                                    <input type="text" name="title" class="form-control" id="inputType1"
-                                                        placeholder="Title of Part" required>
+                                                    <input required type="text" name="title" class="form-control"
+                                                        id="inputType1" placeholder="Title of Part" required>
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area mb-4">
@@ -46,7 +48,8 @@ if (isset($_GET['submit_text'])) {
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile">
+                                                        <input type="file" name="audio" class="custom-file-input"
+                                                            id="customFile">
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
                                                     </div>
@@ -58,37 +61,31 @@ if (isset($_GET['submit_text'])) {
                                                             class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
-                                                    <textarea type="text" name="content" class="form-control"
-                                                        style="min-height: 500px;" id="inputEditor" required></textarea>
+                                                    <textarea rows="10" type="text" name="content" class="form-control"
+                                                        id="inputEditor"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row showcase_row_area">
+                                                <div class="col-md-1 showcase_text_area"></div>
+                                                <div class="col-md-11 showcase_content_area">
                                                     <div class="mt-3">
-                                                        <input class="btn btn-primary rounded-pill mb-3 m-0"
-                                                            type="submit" value="Submit" name="submit_text">
+                                                        <input value="Submit" class="btn rounded-pill btn-primary mb-3"
+                                                            type="submit">
+                                                        <input type="submit" value="Create">
+                                                        <!-- <button type="submit" name="submit"
+                                                            value="submit">Submit</button> -->
                                                         <input class="btn btn-danger rounded-pill mb-3 m-0"
-                                                            type="button" value="Discard">
+                                                            type="submit" value="Discard">
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </form>
-                <!-- <div class="col">
-                    <div class="row-md-2">
-                        <a class="mt-5" href="/add-part/1">
-                            <div class="btn btn-success has-icon rounded-pill mb-3 m-0">
-                                Save Part
-                            </div>
-                        </a>
-                        <a class="mt-5" href="/add-part/1">
-                            <div class="btn btn-danger has-icon rounded-pill mb-3 m-0">
-                                Discard
-                            </div>
-                        </a>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

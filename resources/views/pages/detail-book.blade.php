@@ -14,14 +14,17 @@
                         <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
                     </div>
                 </div>
+                @if(session('success'))
+                <div class="swal" status="success" message="<?= session('success') ?>"></div>
+                @endif
                 <div class="row">
                     <div class="col-4">
-                        <div class="grid d-flex col-md-auto mx-5" height="200px"
-                            style="background-image:url('/assets/images/cover/persona.png');background-size:cover;height:450px;">
-                            <div class="pb-4 justify-content-center align-self-end px-5">
+                        <div class="grid d-flex col-md-auto mx-5">
+                            <div class="position-absolute pb-4 justify-content-center align-self-end px-5 mx-3">
                                 <label class="btn btn-rounded social-btn btn-behance" for="coverFile"><i
                                         class="mdi mdi-file-image"></i>Update Image</label>
                             </div>
+                            <img class="img-fluid rounded shadow" src="/assets/images/cover/persona.png" alt="">
                         </div>
                         <div class="text-muted text-small text-center">
                             <i> *for better experience, the images should 390px x 610px.</i>
@@ -32,15 +35,27 @@
                             <div class="item-wrapper">
                                 <div class="row mb-3">
                                     <div class="col-md-8 mx-auto">
-                                        <form action="">
+                                        <form action="{{route('updatedBooks',['id'=>$post->id])}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group row showcase_row_area">
                                                 <input hidden type="file" class="custom-file-input" id="coverFile">
                                                 <div class="col-md-3 showcase_text_area">
                                                     <label for="inputType1">Title</label>
                                                 </div>
                                                 <div class="col-md-9 showcase_content_area">
-                                                    <input type="text" class="form-control" id="inputType1"
+                                                    <input type="text" name="title" class="form-control" id="inputType1"
                                                         placeholder="Title Here" value="{{$post->title}}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row showcase_row_area">
+                                                <input hidden type="file" class="custom-file-input" id="coverFile">
+                                                <div class="col-md-3 showcase_text_area">
+                                                    <label for="inputType1">Slug</label>
+                                                </div>
+                                                <div class="col-md-9 showcase_content_area">
+                                                    <input readonly type="text" name="slug" class="form-control"
+                                                        id="inputType1" placeholder="Slug Here" value="{{$post->slug}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row showcase_row_area">
@@ -48,7 +63,7 @@
                                                     <label for="inputType9">Description</label>
                                                 </div>
                                                 <div class="col-md-9 showcase_content_area">
-                                                    <textarea class="form-control" id="inputType9" cols="12"
+                                                    <textarea class="form-control" name="desc" id="inputType9" cols="12"
                                                         rows="5">{{$post->description}}</textarea>
                                                 </div>
                                             </div>
@@ -62,14 +77,14 @@
                                                         <label>
                                                             @foreach($post_categories as $pc)
                                                             <?php
-                                                            if ($c->id == $pc['category_id']) :
+                                                            if ($c->id != $pc['category_id']) :
                                                             ?>
-                                                            <input type="checkbox" value="{{$c->id}}" checked
+                                                            <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
                                                                 class="form-check-input">
                                                             <i class="input-frame"></i>
                                                             <?php else : ?>
-                                                            <input type="checkbox" value="{{$c->id}}"
-                                                                class="form-check-input">
+                                                            <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
+                                                                checked class="form-check-input">
                                                             <i class="input-frame"></i>
                                                             <?php endif ?>
                                                             @endforeach
@@ -80,11 +95,40 @@
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area">
+                                                <div class="col-md-3 showcase_text_area">
+                                                    <label>Status</label>
+                                                </div>
+                                                <div class="col-md-auto btn-group mb-0" data-toggle="buttons">
+                                                    @if($post->isShowed == 'true')
+                                                    <label class="btn btn-primary active">
+                                                        <input type="radio" name="isShowed" value="true" id="" checked>
+                                                        <i class="mdi mdi-book-open-page-variant"></i>Published
+                                                    </label>
+                                                    <label class="btn btn-primary ">
+                                                        <input type="radio" name="isShowed" value="false" id="">
+                                                        <i class="mdi mdi-pencil-box"></i>Drafted
+                                                    </label>
+                                                    @else
+                                                    <label class="btn btn-primary">
+                                                        <input type="radio" name="isShowed" value="true" id="">
+                                                        <i class=" mdi mdi-book-open-page-variant"></i>Published
+                                                    </label>
+                                                    <label class="btn btn-primary active">
+                                                        <input type="radio" name="isShowed" value="false" id="" checked>
+                                                        <i class="mdi mdi-pencil-box"></i>Drafted
+                                                    </label>
+                                                    @endif
+
+                                                </div>
+                                            </div>
+                                            <div class="row showcase_row_area">
                                                 <div class="col-md-3 showcase_text_area"></div>
                                                 <div class="col-md-9">
+                                                    @if(session()->get('id') == $post->created_by)
                                                     <input
                                                         class="btn rounded-pill btn-primary px-5 d-flex align-self-end"
                                                         type="submit" value="Save">
+                                                    @endif
                                                 </div>
                                             </div>
                                         </form>
@@ -93,19 +137,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <!-- url with parameters  -->
-                        <a class="mt-5" href="{{route('add-part',['slug'=>$post->slug])}}">
+                    <!-- url with parameters  -->
+                    <div class="row mt-5">
+                        @if(session()->get('id') == $post->created_by)
+                        <a href="{{route('add-part',['slug'=>$post->slug])}}">
                             <div class="btn btn-primary has-icon rounded-pill mb-3 m-0">
                                 <i class="mdi mdi-library-plus"></i>Add Part
                             </div>
                         </a>
+                        @endif
                         <div class="col-12 item-wrapper">
                             <div class="table-responsive">
                                 <table class="table info-table">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
+                                            <th class="col-md-4">Title</th>
                                             <th>Authors</th>
                                             <th>Parts</th>
                                             <th class="text-center">Audio</th>
@@ -114,24 +160,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $s = 0;
+                                        $i = 1;
+                                        ?>
                                         @foreach($parts as $part)
                                         <tr>
-                                            <td>{{$part->title}}
+                                            <td>
+                                                <span>{{$parts_title[$s++]}}</span>
                                                 <div>
-                                                    <a href="{{route('part', ['id' => $part->id])}}">Edit |</a><a
-                                                        href="#">
-                                                        Quick Edit |</a><a href="#" class="text-danger">
-                                                        Trash </a><a href="#">| View</a>
+
+                                                    <span>
+                                                        <form action="{{route('destroyParts', ['id' => $part->id])}}"
+                                                            method="POST">
+                                                            <a href=" {{route('part', ['id' => $part->id])}}">Edit |</a>
+                                                            <a href="#">Quick Edit |</a>
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="submit"
+                                                                style="background: none!important; border: none;padding: 0!important;"
+                                                                class="text-danger" value="Trash">
+                                                            <a href="#">| View</a>
+                                                        </form>
+                                                    </span>
                                                 </div>
                                             </td>
                                             <td>{{$post_users->nickname}}</td>
-                                            <td><?php
-                                                $i = 1;
-                                                echo $i++;
-                                                ?></td>
+                                            <td>
+                                                {{$i++}}
+                                            </td>
                                             <td>
                                                 <audio controls
-                                                    src="/assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
+                                                    src="/../../assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
                                             </td>
                                             <td>
                                                 @if($part->updated_at == null)
@@ -162,5 +221,19 @@
     <!--page body ends -->
     <!-- Scripts JS here -->
     @include('/layout/partials/_scripts')
+    <script>
+    let message = $(".swal").attr('message')
+    let icon = $(".swal").attr('status')
+    if (message) {
+        swal({
+            // title: "Good job!",
+            text: message,
+            icon: icon,
+            button: false,
+            closeOnEsc: true,
+            timer: 2000,
+        })
+    }
+    </script>
 </body>
 @endsection

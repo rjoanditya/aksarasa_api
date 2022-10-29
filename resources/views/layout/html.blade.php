@@ -21,8 +21,8 @@
     <!-- CKEditor 5 -->
     <!-- <script src="/ckeditor5/build/ckeditor.js"></script> -->
     <!-- <link rel="stylesheet" href="/assets/css/content-styles.css" type="text/css"> -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/balloon/ckeditor.js"></script>
+    <script src="/ckeditor5/build/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/balloon/ckeditor.js"></script> -->
 
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

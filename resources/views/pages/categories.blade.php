@@ -54,20 +54,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($categories as $category)
                                     <tr id="$i">
-                                        <td id="$i">Non Fiction
+                                        <td id="$i">{{$category->name}}
                                             <div>
                                                 <a href="#">Edit |</a><a href="#"> Quick Edit |</a><a href="#"
                                                     class="text-danger">
                                                     Delete </a><a href="#">| View</a>
                                             </div>
                                         </td>
-                                        <td>non-fiction</td>
-                                        <td>14</td>
+                                        <td>{{$category->slug}}</td>
+                                        <td>{{count($counts->where('category_id',$category->id))}}</td>
                                         <td class="actions">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
