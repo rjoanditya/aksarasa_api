@@ -49,7 +49,7 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
      * 
      * /ak-narrator
      */
-    Route::group(['prefix' => 'users'], function () {
+    Route::group(['prefix' => 'ak-admin'], function () {
         Route::get('/', [AuthController::class, 'dashboard']);
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -61,11 +61,13 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
          */
         Route::get('/books/{slug}', [Controller::class, 'getBook'])->name('books-detail');
         Route::get('/add-book', [Controller::class, 'addBooks'])->name('add-book');
+        Route::post('/adding-book', [Controller::class, 'storeBook'])->name('adding-book');
+        Route::delete('/trash-book/{id}', [Controller::class, 'destroyBooks'])->name('destroyBooks');
+        Route::put('/updated/book/{id}', [Controller::class, 'updatedBooks'])->name('updatedBooks');
 
         /**
          * {id} dari buku
          */
-        Route::get('/add-part/{slug}', [Controller::class, 'addParts'])->name('add-part');
         Route::get('/categories', [Controller::class, 'getCategories'])->name('categories');
         Route::get('/tags', [Controller::class, 'getTags'])->name('tags');
         Route::get('/audio', [Controller::class, 'getAudios'])->name('audio');
@@ -74,6 +76,9 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
         /**
          * {id} dari part
          */
-        Route::get('/part/{id}', [Controller::class, 'getPart'])->name('part');
+        Route::get('/edit-part/{id}', [Controller::class, 'getPart'])->name('part');
+        Route::get('/add-part/{slug}', [Controller::class, 'addParts'])->name('add-part');
+        Route::post('/adding-part', [Controller::class, 'storeParts'])->name('adding-part');
+        Route::delete('/trash-part/{id}', [Controller::class, 'destroyParts'])->name('destroyParts');
     });
 });

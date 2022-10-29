@@ -60,7 +60,7 @@ class AuthController extends Controller
                     'isAdmin' => 'true',
                     'username' => $request->username,
                 ]);
-                return redirect('users/dashboard');
+                return redirect(route('dashboard'));
             }
         }
         if ($data->roles_id == 2) {
