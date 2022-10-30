@@ -65,8 +65,17 @@ class Controller extends BaseController
         foreach ($parts as $part) {
             $parts_title[] = Str::limit($part->title, 60);
         }
+        foreach ($post_id as $pid) {
+            $pid->parts_id;
+            if ($pid->parts_id) {
+                foreach ($parts as $part) {
+                    $parts_title[] = Str::limit($part->title, 60);
+                }
+                return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users', 'parts_title'));
+            }
+        }
 
-        return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users', 'parts_title'));
+        return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users'));
     }
 
     public function addBooks()
