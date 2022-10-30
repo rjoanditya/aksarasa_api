@@ -11,19 +11,23 @@
                 <div class="row">
                     <div class="col-12 py-5">
                         <h4>Categories</h4>
-                        <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
+                        @if(session('success'))
+                        <div class="swal" status="success" message="<?= session('success') ?>">
+                        </div>
+                        @endif
                     </div>
                     <div class="grid col-md-6">
                         <div class="grid-body">
                             <div class="item-wrapper">
-                                <form>
+                                <form action="{{route('storeCategory')}}" method="POST">
+                                    @csrf
                                     <div class="form-group row showcase_row_area">
                                         <div class="col-md-2 showcase_text_area">
                                             <label for="inputEmail10">Name</label>
                                         </div>
                                         <div class="col-md-10 showcase_content_area">
-                                            <input type="text" class="form-control" id="inputEmail10"
-                                                placeholder="This name is appear on your site">
+                                            <input type="text" name="name" class="form-control" required
+                                                id="inputEmail10" placeholder="This name is appear on your site">
                                         </div>
                                     </div>
                                     <div class="form-group row showcase_row_area">
@@ -31,11 +35,12 @@
                                             <label for="inputEmail4">Slug</label>
                                         </div>
                                         <div class="col-md-10 showcase_content_area">
-                                            <input type="text" class="form-control" id="inputEmail4"
+                                            <input type="text" name="slug" class="form-control" required
+                                                id="inputEmail4"
                                                 placeholder="The “slug” is the URL-friendly version of the name.">
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-sm btn-primary">Add Categories</button>
+                                    <input type="submit" class="btn btn-sm btn-primary" value="Add">
                                 </form>
                             </div>
                         </div>

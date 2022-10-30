@@ -19,7 +19,7 @@
                         <div class="item-wrapper">
                             <div class="row mb-3">
                                 <div class="col-md-8 mx-auto">
-                                    <form action="{{route('adding-book')}}" method="POST">
+                                    <form action="{{route('adding-book')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-md-12 bg-dark mb-3">
                                             <div class="container">
@@ -35,8 +35,8 @@
                                             </div>
                                             <div class="col-md-9 showcase_content_area">
                                                 <div class="custom-file">
-                                                    <input type="file" name="image" class="custom-file-input"
-                                                        id="customFile">
+                                                    <input type="file" class="custom-file-input" id="customFile"
+                                                        name="image">
                                                     <label class="custom-file-label pl-4 text-muted"
                                                         style="font-size: 13px;" for="customFile">Choose
                                                         file</label>
@@ -58,7 +58,8 @@
                                             </div>
                                             <div class="col-md-9 showcase_content_area">
                                                 <input type="text" required name="slug" class="form-control"
-                                                    id="inputType1" placeholder="Slug Here">
+                                                    id="inputType1"
+                                                    placeholder='The " slug" is the URL-friendly version of the name'>
                                             </div>
                                         </div>
                                         <div class="form-group row showcase_row_area">
@@ -104,7 +105,7 @@
             </div>
         </div>
         <!-- content viewport ends -->
-        @include('/layout/partials/_footer')
+        @include(' /layout/partials/_footer')
     </div>
     <!-- page content ends -->
     </div>

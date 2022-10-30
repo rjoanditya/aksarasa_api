@@ -19,25 +19,29 @@ if (isset($_GET['submit_text'])) {
             <div class="content-viewport">
                 <div class="row">
                     <div class="col-12 py-3">
-                        <!-- <h4>Books</h4> -->
-                        <!-- <p class="text-gray">Welcome aboard, Admin</p> -->
+
                     </div>
                 </div>
-                <form action="{{route('adding-part')}}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="grid col-md-12">
-                            <div class="grid-body">
-                                <div class="item-wrapper">
-                                    <div class="row mb-3">
-                                        <div class="col-md-12 mx-auto">
+                @if(session('success'))
+                <div class="swal" status="success" message="<?= session('success') ?>">
+                </div>
+                @endif
+                <div class="row">
+                    <div class="grid col-md-12">
+                        <div class="grid-body">
+                            <div class="item-wrapper">
+                                <div class="row mb-3">
+                                    <div class="col-md-12 mx-auto">
+                                        <form action="{{route('updatedParts',['id'=>$parts->id])}}" method="POST">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group row showcase_row_area">
                                                 <div class="col-md-1 showcase_text_area">
                                                     <label for="inputType1">Title<span
                                                             class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
-                                                    <input type="text" name="title" required class="form-control"
+                                                    <input type="text" name="title" required class="form-control px-3"
                                                         id="inputType1" value="{{$parts->title}}"
                                                         placeholder="Title of Part">
                                                 </div>
@@ -48,7 +52,8 @@ if (isset($_GET['submit_text'])) {
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile">
+                                                        <input name="file" type="file" class="custom-file-input"
+                                                            id="customFile">
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
                                                     </div>
@@ -71,14 +76,14 @@ if (isset($_GET['submit_text'])) {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </form>
-                <!-- <div class="col">
+                    </div>
+
+                    <!-- <div class="col">
                     <div class="row-md-2">
                         <a class="mt-5" href="/add-part/1">
                             <div class="btn btn-success has-icon rounded-pill mb-3 m-0">
@@ -92,16 +97,17 @@ if (isset($_GET['submit_text'])) {
                         </a>
                     </div>
                 </div> -->
+                </div>
             </div>
         </div>
-    </div>
-    <!-- content viewport ends -->
-    @include('/layout/partials/_footer')
+        <!-- content viewport ends -->
+        @include('/layout/partials/_footer')
     </div>
     <!-- page content ends -->
     </div>
     <!--page body ends -->
     <!-- Scripts JS here -->
     @include(' /layout/partials/_scripts')
+
 </body>
 @endsection

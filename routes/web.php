@@ -69,6 +69,7 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
          * {id} dari buku
          */
         Route::get('/categories', [Controller::class, 'getCategories'])->name('categories');
+        Route::post('/storeCategory', [Controller::class, 'storeCategory'])->name('storeCategory');
         Route::get('/tags', [Controller::class, 'getTags'])->name('tags');
         Route::get('/audio', [Controller::class, 'getAudios'])->name('audio');
 
@@ -80,5 +81,6 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
         Route::get('/add-part/{slug}', [Controller::class, 'addParts'])->name('add-part');
         Route::post('/adding-part', [Controller::class, 'storeParts'])->name('adding-part');
         Route::delete('/trash-part/{id}', [Controller::class, 'destroyParts'])->name('destroyParts');
+        Route::put('/updated/part/{id}', [Controller::class, 'updatedParts'])->name('updatedParts');
     });
 });

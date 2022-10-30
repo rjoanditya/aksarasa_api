@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="auth_footer">
-            <p class="text-muted text-center">© aksarasa.iotanic.id 2022</p>
+            <p class="text-muted text-center">© 2022 | aksarasa.my.id</p>
         </div>
     </div>
     <!--page body ends -->

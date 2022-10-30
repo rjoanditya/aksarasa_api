@@ -24,7 +24,10 @@
                                 <label class="btn btn-rounded social-btn btn-behance" for="coverFile"><i
                                         class="mdi mdi-file-image"></i>Update Image</label>
                             </div>
-                            <img class="img-fluid rounded shadow" src="/assets/images/cover/persona.png" alt="">
+                            @if ($post->image == "")
+                            <img class="img-fluid rounded shadow" src="/assets/images/cover/default.png" alt="">
+                            @endif
+                            <img class="img-fluid rounded shadow" src="{{$post->image}}" alt="">
                         </div>
                         <div class="text-muted text-small text-center">
                             <i> *for better experience, the images should 390px x 610px.</i>
@@ -35,11 +38,13 @@
                             <div class="item-wrapper">
                                 <div class="row mb-3">
                                     <div class="col-md-8 mx-auto">
-                                        <form action="{{route('updatedBooks',['id'=>$post->id])}}" method="POST">
+                                        <form action="{{route('updatedBooks',['id'=>$post->id])}}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group row showcase_row_area">
-                                                <input hidden type="file" class="custom-file-input" id="coverFile">
+                                                <input hidden type="file" disabled name="image"
+                                                    class="custom-file-input" id="coverFile">
                                                 <div class="col-md-3 showcase_text_area">
                                                     <label for="inputType1">Title</label>
                                                 </div>
@@ -76,17 +81,11 @@
                                                     <div class="checkbox mb-3">
                                                         <label>
                                                             @foreach($post_categories as $pc)
-                                                            <?php
-                                                            if ($c->id != $pc['category_id']) :
-                                                            ?>
-                                                            <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
-                                                                class="form-check-input">
-                                                            <i class="input-frame"></i>
-                                                            <?php else : ?>
+                                                            @if ($c->id == $pc['category_id'])
                                                             <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
                                                                 checked class="form-check-input">
+                                                            @endif
                                                             <i class="input-frame"></i>
-                                                            <?php endif ?>
                                                             @endforeach
                                                             {{$c->name}}
                                                         </label>
@@ -168,7 +167,6 @@
                                             <td>
                                                 <span>{{$parts_title[$s++]}}</span>
                                                 <div>
-
                                                     <span>
                                                         <form action="{{route('destroyParts', ['id' => $part->id])}}"
                                                             method="POST">
@@ -189,8 +187,7 @@
                                                 {{$i++}}
                                             </td>
                                             <td>
-                                                <audio controls
-                                                    src="/../../assets/audio/mobydick_010_012_melville_64kb.mp3"></audio>
+                                                <audio controls src="/assets/audio/"></audio>
                                             </td>
                                             <td>
                                                 @if($part->updated_at == null)

@@ -35,9 +35,9 @@
                     <li>
                         <a href="{{route('categories')}}">Categories</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="{{route('tags')}}">Tags</a>
-                    </li>
+                    </li> -->
 
                 </ul>
             </li>
@@ -50,13 +50,13 @@
                     <li>
                         <a href="{{route('audio')}}">All Audiobook</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Add New</a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
 
-            <li class="nav-category-divider">AUTH</li>
+            <!-- <li class="nav-category-divider">AUTH</li>
             <li>
                 <a href="#">
                     <span class="link-title">Administrators</span>
@@ -74,7 +74,7 @@
                     <span class="link-title">Authors</span>
                     <i class="mdi mdi-account link-icon"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
         <div class="sidebar-upgrade-banner">
             <a class="btn upgrade-btn" href="{{route('logout')}}"> <i class="pr-3 mdi mdi-logout-variant"></i>Log

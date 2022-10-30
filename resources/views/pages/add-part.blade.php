@@ -71,9 +71,6 @@ if (isset($_GET['submit_text'])) {
                                                     <div class="mt-3">
                                                         <input value="Submit" class="btn rounded-pill btn-primary mb-3"
                                                             type="submit">
-                                                        <input type="submit" value="Create">
-                                                        <!-- <button type="submit" name="submit"
-                                                            value="submit">Submit</button> -->
                                                         <input class="btn btn-danger rounded-pill mb-3 m-0"
                                                             type="submit" value="Discard">
                                                     </div>

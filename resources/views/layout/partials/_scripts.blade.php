@@ -36,3 +36,17 @@ ClassicEditor.create(document.getElementById('inputEditor'))
 //     return theEditor.getData();
 // }
  </script>
+ <script>
+let message = $(".swal").attr('message')
+let icon = $(".swal").attr('status')
+if (message) {
+    swal({
+        // title: "Good job!",
+        text: message,
+        icon: icon,
+        button: false,
+        closeOnEsc: true,
+        timer: 2000,
+    })
+}
+ </script>
