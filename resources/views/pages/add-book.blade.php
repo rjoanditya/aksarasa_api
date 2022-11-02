@@ -35,8 +35,8 @@
                                             </div>
                                             <div class="col-md-9 showcase_content_area">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile"
-                                                        name="image">
+                                                    <input type="file" accept="image/*" class="custom-file-input"
+                                                        id="customFile" name="image">
                                                     <label class="custom-file-label pl-4 text-muted"
                                                         style="font-size: 13px;" for="customFile">Choose
                                                         file</label>
@@ -59,7 +59,7 @@
                                             <div class="col-md-9 showcase_content_area">
                                                 <input type="text" required name="slug" class="form-control"
                                                     id="inputType1"
-                                                    placeholder='The " slug" is the URL-friendly version of the name'>
+                                                    placeholder='The "slug" is the URL-friendly version of the name'>
                                             </div>
                                         </div>
                                         <div class="form-group row showcase_row_area">

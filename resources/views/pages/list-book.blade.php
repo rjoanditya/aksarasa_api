@@ -49,23 +49,41 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($post as $p)
+
                                     <tr>
+
                                         <!-- title -->
-                                        <td>{{$p->title}}
-                                            <div>
-                                                <form action="{{route('destroyBooks', ['id' => $p->id])}}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit |</a>
-                                                    <a href="#"> Quick Edit |</a>
-                                                    <input type="submit"
-                                                        style="background: none!important; border: none;padding: 0!important;"
-                                                        class="text-danger" value="Trash">
-                                                    <a href="#">| View</a>
-                                                </form>
+                                        <td class="d-flex">
+                                            <div class="align-self-center pr-3">
+                                                <span class="status-indicator rounded-indicator small 
+                                                    <?php if ($p->isShowed == 'true') {
+                                                        echo "bg-success";
+                                                    } else {
+                                                        echo "bg-warning";
+                                                    } ?>"></span>
+
+                                            </div>
+                                            <div class="flex-row">
+                                                {{$p->title}}
+                                                <div>
+                                                    <form class="text-hover"
+                                                        action="{{route('destroyBooks', ['id' => $p->id])}}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{route('books-detail', ['slug' => $p->slug])}}">Edit
+                                                            |</a>
+                                                        <a href="#"> Quick Edit |</a>
+                                                        <button type="submit"
+                                                            style="background: none!important; border: none;padding: 0!important;"
+                                                            class="text-danger show_confirm" data-toggle="tooltip"
+                                                            data-swal-template="#trash-template">Trash</button>
+                                                        <a href="#">| View</a>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </td>
+
                                         <!-- nickname -->
                                         <td>{{$user->where('id','=',$p->created_by)->first()['nickname']}}</td>
                                         <!-- Categories -->
@@ -90,6 +108,7 @@
                                         <td class="actions">
                                             <i class="mdi mdi-dots-vertical"></i>
                                         </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -121,5 +140,7 @@
         })
     }
     </script>
+
+
 </body>
 @endsection

@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class Controller extends BaseController
@@ -55,27 +56,39 @@ class Controller extends BaseController
         $post = Post::where('slug', 'like', $slug)->get()[0];
         $post_id = DB::table('posts_parts')->join('lib_post', 'posts_parts.post_id', 'lib_post.id')->where('post_id', $post->id)->get();
         $post_users = Post::where('slug', 'like', $slug)->join('lib_users', 'lib_users.id', 'lib_post.created_by')->get()[0];
-        $post_categories = Post::join('post_categories', 'lib_post.id', 'post_categories.post_id')
-            ->select('post_categories.*')
-            ->where('post_id', $post->id)
-            ->get();
+        $post_categories = Post::join('post_categories', 'lib_post.id', 'post_categories.post_id')->select('post_categories.*')->where('post_id', $post->id)->get();
         $category = Category::get();
         $parts = Part::join('lib_parts', 'lib_parts.id', 'posts_parts.parts_id')->where('post_id', $post->id)->get();
-
         foreach ($parts as $part) {
             $parts_title[] = Str::limit($part->title, 60);
         }
+        $pc = [];
+        $i = 1;
+        // Homework
+        foreach ($post_categories as $post_category) {
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$i++] = null;
+            $pc[$post_category->category_id] = $post_category->category_id;
+        }
+
+        // parts_title
         foreach ($post_id as $pid) {
             $pid->parts_id;
             if ($pid->parts_id) {
                 foreach ($parts as $part) {
                     $parts_title[] = Str::limit($part->title, 60);
                 }
-                return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users', 'parts_title'));
+                return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users', 'parts_title', 'pc'));
             }
         }
 
-        return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users'));
+        return view('pages/detail-book', compact('post', 'post_categories', 'category', 'parts', 'post_users', 'pc'));
     }
 
     public function addBooks()
@@ -102,7 +115,6 @@ class Controller extends BaseController
             'isShowed'   => $request->isShowed,
             'image'      => $request->file('image'),
         ];
-
         // Generated unique slug
         // -----------------------------------------------------
         $slug = hexdec(uniqid()) . '-' . $data['slug'];
@@ -111,16 +123,9 @@ class Controller extends BaseController
         if ($validated) {
             // File handling here
             $image           = $slug . '.' . $request->file('image')->getClientOriginalExtension();
-            $data['image']->move(public_path('/assets/images/cover/' . $slug . '/'), $image);
-            $imageUpload     = '/assets/images/cover/' . $slug . '/' . $image;
+            $data['image']->move(public_path('/assets/images/cover/'), $image);
+            $imageUpload     = '/assets/images/cover/' . $image;
 
-            // Homework! Iterartion for input Category | Yeay Done!
-            $category = [];
-            $i = 1;
-            $length = count(Category::get());
-            for ($i = 1; $i <= $length; $i++) {
-                $category[$i] =  $request->$i;
-            }
 
             // Insert to 'lib_post' table
             Post::insert([
@@ -133,6 +138,13 @@ class Controller extends BaseController
                 'created_at'  => date('Y-m-d H:i:s'),
                 'image'       => $imageUpload,
             ]);
+            // Homework! Iterartion for input Category | Yeay Done!
+            $category = [];
+            $i = 1;
+            $length = count(Category::get());
+            for ($i = 1; $i <= $length; $i++) {
+                $category[$i] =  $request->$i;
+            }
 
             // get new post_id for insert category
             $post = Post::where('slug', $slug)->where('created_by', $data['created_by'])->where('description', $data['desc'])->get()[0];
@@ -193,6 +205,7 @@ class Controller extends BaseController
         for ($i = 1; $i <= $length; $i++) {
             $category[$i] =  $request->$i;
         }
+
         // delete old categories
         $post_category = PostCategories::get();
         foreach ($post_category as $pc) {
@@ -213,19 +226,26 @@ class Controller extends BaseController
 
     public function destroyBooks($id)
     {
+
         $post = Post::where('id', $id)->get()[0];
         $post_parts = Part::where('post_id', $post->id)->get();
+        if ($post->created_by != session()->get('id')) {
+            return redirect(route('books'))->with('message', 'You have not permission to Delete this book');
+        }
+
         if ($post_parts) {
             foreach ($post_parts as $part) {
-                LibParts::where('id', $part->id)->get()[0]->delete();
-                $part->post_id->delete();
+                LibParts::where('id', $part->parts_id)->get()->first()->delete();
+                $part->where('post_id', $post->id)->delete();
             }
         }
         $post_category = PostCategories::get();
         foreach ($post_category as $pc) {
             $pc->where('post_id', $id)->delete();
         }
-
+        if ($post->image) {
+            unlink(public_path($post->image));
+        }
         $post->delete();
         return redirect(route('books'))->with('success', 'Books Success Delete');
     }
@@ -243,7 +263,6 @@ class Controller extends BaseController
         if ($post->created_by != session()->get('id')) {
             return redirect(route('books'))->with('message', 'You have not permission to edit part this book');
         }
-        // dd($parts);
         return view('pages/part', compact('parts'));
     }
 
@@ -324,11 +343,9 @@ class Controller extends BaseController
         $categories = Category::get();
         $counts = DB::table('post_categories')->get();
         $i = 1;
-        // dd($categories);
         foreach ($categories as $category) {
             $count[] = $counts->where('category_id', $category->id)->whereNotIn('post_id', null);
         }
-        // dd($counts);
         return view('pages/categories', compact('categories', 'counts'));
     }
 

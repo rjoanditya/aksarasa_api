@@ -50,5 +50,4 @@
 <!-- Auth -->
 @yield('login')
 
-
 </html>

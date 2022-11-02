@@ -70,7 +70,7 @@ class AuthController extends Controller
                     'username' => $request->username,
                 ]);
                 // dd(session('isNarrators'));
-                return redirect('users/dashboard');
+                return redirect(route('dashboard'));
             }
         }
         if ($data->roles_id == 3) {
@@ -79,7 +79,7 @@ class AuthController extends Controller
                     'isAuthors' => 'true',
                     'username' => $request->username,
                 ]);
-                return redirect('users/dashboard');
+                return redirect(route('dashboard'));
             }
         }
         return redirect('login')->with('message', 'the Password is not correct');
@@ -97,15 +97,21 @@ class AuthController extends Controller
             'username' => $request->username,
             'nickname' => $request->nickname,
             'password' => Hash::make($request->password),
+            'role'     => $request->role,
+            'status'   =>  $request->status
         ];
-        // dd($data);
+
+        if ($request->password != $request->conf_password) {
+            return redirect(route('ak-signup'))->with('message', 'The password does not match!');
+        }
+
         User::insert([
-            'email' => $request->email,
-            'username' => $request->username,
-            'nickname' => $request->nickname,
-            'password' => Hash::make($request->password),
-            'roles_id' => $request->role,
-            'status_activation'   => $request->status
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'nickname' => $data['nickname'],
+            'password' => $data['password'],
+            'roles_id' => $data['role'],
+            'status_activation'   => $data['status']
         ]);
         // $password = Hash::make($request->password);
         return redirect('login')->with('success', 'Thanks for filling out our form. Your account is activated now!');

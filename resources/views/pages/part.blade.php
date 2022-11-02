@@ -52,8 +52,8 @@ if (isset($_GET['submit_text'])) {
                                                 </div>
                                                 <div class="col-md-11 showcase_content_area">
                                                     <div class="custom-file">
-                                                        <input name="file" type="file" class="custom-file-input"
-                                                            id="customFile">
+                                                        <input name="file" type="file" accept="audio/*"
+                                                            class="custom-file-input" id="customFile">
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
                                                     </div>

@@ -18,9 +18,9 @@
                 <div class="swal" status="success" message="<?= session('success') ?>"></div>
                 @endif
                 <div class="row">
-                    <div class="col-4">
-                        <div class="grid d-flex col-md-auto mx-5">
-                            <div class="position-absolute pb-4 justify-content-center align-self-end px-5 mx-3">
+                    <div class="col-md-4 col-sm-6 col-6">
+                        <div class="grid d-flex justify-content-center col-md-auto">
+                            <div class="position-absolute pb-4 align-self-end">
                                 <label class="btn btn-rounded social-btn btn-behance" for="coverFile"><i
                                         class="mdi mdi-file-image"></i>Update Image</label>
                             </div>
@@ -33,7 +33,7 @@
                             <i> *for better experience, the images should 390px x 610px.</i>
                         </div>
                     </div>
-                    <div class="grid col-8">
+                    <div class="grid col-md-8 col-sm-6 col-6 equel-grid">
                         <div class="grid-body">
                             <div class="item-wrapper">
                                 <div class="row mb-3">
@@ -45,56 +45,57 @@
                                             <div class="form-group row showcase_row_area">
                                                 <input hidden type="file" disabled name="image"
                                                     class="custom-file-input" id="coverFile">
-                                                <div class="col-md-3 showcase_text_area">
+                                                <div class="col-md-2 showcase_text_area">
                                                     <label for="inputType1">Title</label>
                                                 </div>
-                                                <div class="col-md-9 showcase_content_area">
+                                                <div class="col-md-10 showcase_content_area">
                                                     <input type="text" name="title" class="form-control" id="inputType1"
                                                         placeholder="Title Here" value="{{$post->title}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row showcase_row_area">
                                                 <input hidden type="file" class="custom-file-input" id="coverFile">
-                                                <div class="col-md-3 showcase_text_area">
+                                                <div class="col-md-2 showcase_text_area">
                                                     <label for="inputType1">Slug</label>
                                                 </div>
-                                                <div class="col-md-9 showcase_content_area">
+                                                <div class="col-md-10 showcase_content_area">
                                                     <input readonly type="text" name="slug" class="form-control"
                                                         id="inputType1" placeholder="Slug Here" value="{{$post->slug}}">
                                                 </div>
                                             </div>
                                             <div class="form-group row showcase_row_area">
-                                                <div class="col-md-3 showcase_text_area">
+                                                <div class="col-md-2 showcase_text_area">
                                                     <label for="inputType9">Description</label>
                                                 </div>
-                                                <div class="col-md-9 showcase_content_area">
+                                                <div class="col-md-10 showcase_text_area">
                                                     <textarea class="form-control" name="desc" id="inputType9" cols="12"
                                                         rows="5">{{$post->description}}</textarea>
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area">
-                                                <div class="col-md-3 showcase_text_area">
+                                                <div class="col-md-2 showcase_text_area">
                                                     <label>Categories</label>
                                                 </div>
-                                                <div class="col-md-9 form-inline">
+                                                <div class="col-md-10 form-inline">
                                                     @foreach ($category as $c)
-                                                    <div class="checkbox mb-3">
+                                                    <div class="col-4 checkbox">
                                                         <label>
-                                                            @foreach($post_categories as $pc)
-                                                            @if ($c->id == $pc['category_id'])
+                                                            @if($c->id == $pc[$c->id])
                                                             <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
                                                                 checked class="form-check-input">
+                                                            @else
+                                                            <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
+                                                                class="form-check-input">
                                                             @endif
-                                                            <i class="input-frame"></i>
-                                                            @endforeach
-                                                            {{$c->name}}
+                                                            <i class="input-frame m-0"></i>
+                                                            <span class="text-small">{{$c->name}}</span>
                                                         </label>
                                                     </div>
                                                     @endforeach
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area">
-                                                <div class="col-md-3 showcase_text_area">
+                                                <div class="col-md-2 showcase_text_area">
                                                     <label>Status</label>
                                                 </div>
                                                 <div class="col-md-auto btn-group mb-0" data-toggle="buttons">
@@ -121,8 +122,8 @@
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area">
-                                                <div class="col-md-3 showcase_text_area"></div>
-                                                <div class="col-md-9">
+                                                <div class="col-md-2 showcase_text_area"></div>
+                                                <div class="col-md-10">
                                                     @if(session()->get('id') == $post->created_by)
                                                     <input
                                                         class="btn rounded-pill btn-primary px-5 d-flex align-self-end"
@@ -161,16 +162,15 @@
                                     <tbody>
                                         <?php $s = 0;
                                         $i = 1;
-                                        ?>
-                                        @foreach($parts as $part)
-                                        <tr>
+                                        ?> @foreach($parts as $part) <tr>
                                             <td>
                                                 <span>{{$parts_title[$s++]}}</span>
                                                 <div>
                                                     <span>
                                                         <form action="{{route('destroyParts', ['id' => $part->id])}}"
                                                             method="POST">
-                                                            <a href=" {{route('part', ['id' => $part->id])}}">Edit |</a>
+                                                            <a href=" {{route('part', ['id' => $part->id])}}">Edit
+                                                                |</a>
                                                             <a href="#">Quick Edit |</a>
                                                             @csrf
                                                             @method('DELETE')

@@ -15,13 +15,12 @@
                 <div class="grid shadow-sm">
                     <div class="grid-body">
                         <div class="row">
-
                             <div class="col-lg-7 col-md-8 col-sm-9 col-12 mx-auto form-wrapper">
-                                <form action="" method="POST">
+                                <form action="{{route('signup')}}" method="POST">
                                     @csrf
-                                    <!-- <div class="d-flex justify-content-center mb-3">
-                                        <h3 class="text-center">Sign Up</h3>
-                                    </div> -->
+                                    @if(session('message'))
+                                    <div class="swal" status="warning" message="<?= session('message') ?>"></div>
+                                    @endif
                                     <div class="form-group input-rounded">
                                         <input required type="email" name="email" class="form-control"
                                             placeholder="Email" />
@@ -44,6 +43,10 @@
                                     <div class="form-group input-rounded">
                                         <input required type="password" name="password" class="form-control"
                                             placeholder="Password" />
+                                    </div>
+                                    <div class="form-group input-rounded">
+                                        <input required type="password" name="conf_password" class="form-control"
+                                            placeholder="Confirm Password" />
                                     </div>
                                     <input type="hidden" name="role" value="3">
                                     <input type="hidden" name="status" value="true">
@@ -77,6 +80,20 @@
     <!-- build:js -->
     <script src="/assets/js/template.js"></script>
     <!-- endbuild -->
+    <script>
+    let message = $(".swal").attr('message')
+    let icon = $(".swal").attr('status')
+    if (message) {
+        swal({
+            // title: "Good job!",
+            text: message,
+            icon: icon,
+            button: false,
+            closeOnEsc: true,
+            timer: 2000,
+        })
+    }
+    </script>
 </body>
 
 </html>
