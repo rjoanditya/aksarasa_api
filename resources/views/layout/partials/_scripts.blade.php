@@ -67,4 +67,20 @@ $('.show_confirm').click(function(event) {
             }
         });
 });
+
+// Preview Image
+function previewImg() {
+    const thumbnail = document.querySelector('#thumbnail');
+    const thumbnailLabel = document.querySelector('.custom-file-label');
+    const imgPreview = document.querySelector('.img-preview');
+
+    thumbnailLabel.textContent = thumbnail.files[0].name;
+
+    const thumbFile = new FileReader();
+    thumbFile.readAsDataURL(thumbnail.files[0]);
+
+    thumbFile.onload = function(e) {
+        imgPreview.src = e.target.result;
+    }
+}
  </script>

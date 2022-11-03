@@ -21,9 +21,25 @@
                                 <div class="col-md-8 mx-auto">
                                     <form action="{{route('adding-book')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <div class="col-md-12 bg-dark mb-3">
-                                            <div class="container">
-                                                <p class="text-light text-center">Image here</p>
+                                        <div class="container mb-3">
+                                            <div
+                                                class="col-md-12 p-0 m-0 bg-image rounded-lg d-flex justify-content-center">
+                                                <div class="container mx-0 bg-light" style="opacity: 0.7;">
+
+                                                </div>
+                                                <div>
+                                                    <div class="container p-2 bg-light"
+                                                        style="opacity: 0.7; height:0.5rem;">
+                                                    </div>
+                                                    <label for="thumbnail">
+                                                        <img height="300rem" class="flex-column shadow img-preview"
+                                                            src="/assets/images/cover/default.png" alt="">
+                                                    </label>
+                                                    <div class="container p-2 bg-light"
+                                                        style="opacity: 0.7; height:0.5rem;">
+                                                    </div>
+                                                </div>
+                                                <div class="container mx-0 bg-light" style="opacity: 0.7;"></div>
                                             </div>
                                         </div>
                                         <input type="hidden" name="paid" value="unpaid">
@@ -36,7 +52,7 @@
                                             <div class="col-md-9 showcase_content_area">
                                                 <div class="custom-file">
                                                     <input type="file" accept="image/*" class="custom-file-input"
-                                                        id="customFile" name="image">
+                                                        id="thumbnail" name="image" onchange="previewImg()">
                                                     <label class="custom-file-label pl-4 text-muted"
                                                         style="font-size: 13px;" for="customFile">Choose
                                                         file</label>

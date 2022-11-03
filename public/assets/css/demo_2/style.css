@@ -4802,6 +4802,11 @@ button.bg-light:hover,
 button.bg-light:focus {
   background-color: #d6dde0 !important; }
 
+.bg-image{
+  background-size:cover;
+  background-position: center;
+}
+
 .bg-dark {
   background-color: #223C61 !important; }
 

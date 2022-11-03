@@ -82,21 +82,6 @@ if (isset($_GET['submit_text'])) {
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="col">
-                    <div class="row-md-2">
-                        <a class="mt-5" href="/add-part/1">
-                            <div class="btn btn-success has-icon rounded-pill mb-3 m-0">
-                                Save Part
-                            </div>
-                        </a>
-                        <a class="mt-5" href="/add-part/1">
-                            <div class="btn btn-danger has-icon rounded-pill mb-3 m-0">
-                                Discard
-                            </div>
-                        </a>
-                    </div>
-                </div> -->
                 </div>
             </div>
         </div>

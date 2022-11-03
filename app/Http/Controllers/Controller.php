@@ -63,18 +63,13 @@ class Controller extends BaseController
             $parts_title[] = Str::limit($part->title, 60);
         }
         $pc = [];
-        $i = 1;
-        // Homework
-        foreach ($post_categories as $post_category) {
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$i++] = null;
-            $pc[$post_category->category_id] = $post_category->category_id;
+        $i = 0;
+        // Homework category form
+        foreach ($category as $cat) {
+            foreach ($post_categories as $post_category) {
+                $pc[$cat->id] = null;
+                $pc[$post_category->category_id] = $post_category->category_id;
+            }
         }
 
         // parts_title
@@ -177,6 +172,7 @@ class Controller extends BaseController
             'created_by' => $request->created_by,
             'isShowed'   => $request->isShowed,
             'image'      => $request->file('image'),
+            'old_image'  => $request->old_image,
         ];
 
         // validated slug
@@ -184,21 +180,39 @@ class Controller extends BaseController
         if ($data['slug'] != $posted->slug) {
             $slug = hexdec(uniqid()) . '-' . $data['slug'];
         }
-        $slug = $posted->slug;
-
+        $slug = $data['slug'];
         // File handling 
         // -----------------------------------------------------
+        if ($data['image'] == null) {
+            // update data post
+            Post::where('id', $posted->id)->update([
+                'title'         => $data['title'],
+                'slug'          => $slug,
+                'description'   => $data['desc'],
+                'isShowed'      => $data['isShowed'],
+                'updated_at'    => date('Y-m-d H:i:s'),
+            ]);
+        } else {
+            unlink(public_path($data['old_image']));
+            // File handling here
+            $explode  = explode("-", $slug);
+            $imgName = hexdec(uniqid()) . '-' . $explode[1];
+            $image           =  $imgName . '.' . $request->file('image')->getClientOriginalExtension();
+            $data['image']->move(public_path('/assets/images/cover/'), $image);
+            $imageUpload     = '/assets/images/cover/' . $image;
 
-        // update data post
-        Post::where('id', $posted->id)->update([
-            'title'         => $data['title'],
-            'slug'          => $slug,
-            'description'   => $data['desc'],
-            'isShowed'      => $data['isShowed'],
-            'updated_at'    => date('Y-m-d H:i:s'),
-        ]);
+            Post::where('id', $posted->id)->update([
+                'title'         => $data['title'],
+                'slug'          => $slug,
+                'description'   => $data['desc'],
+                'isShowed'      => $data['isShowed'],
+                'updated_at'    => date('Y-m-d H:i:s'),
+                'image'         => $imageUpload,
+            ]);
+        }
 
-        // Homework! Iterartion for request Category input | Yeay Done!
+
+        // Iterartion for request Category input | Yeay Done!
         $category = [];
         $i = 1;
         $length = count(Category::get());
@@ -226,11 +240,10 @@ class Controller extends BaseController
 
     public function destroyBooks($id)
     {
-
         $post = Post::where('id', $id)->get()[0];
         $post_parts = Part::where('post_id', $post->id)->get();
         if ($post->created_by != session()->get('id')) {
-            return redirect(route('books'))->with('message', 'You have not permission to Delete this book');
+            return back()->with('message', 'You have not permission to Delete this book');
         }
 
         if ($post_parts) {

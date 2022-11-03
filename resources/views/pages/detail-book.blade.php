@@ -19,18 +19,20 @@
                 @endif
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-6">
-                        <div class="grid d-flex justify-content-center col-md-auto">
-                            <div class="position-absolute pb-4 align-self-end">
-                                <label class="btn btn-rounded social-btn btn-behance" for="coverFile"><i
-                                        class="mdi mdi-file-image"></i>Update Image</label>
+                        <div class="d-flex justify-content-center col-md-auto">
+                            <div class="col-md-8 position-absolute pb-4 align-self-end mb-5">
+                                <!-- <label class="btn btn-rounded social-btn btn-behance" for="thumbnail"><i
+                                        class="mdi mdi-file-image custom-file-label "></i></label> -->
+                                <label for="thumbnail" class="custom-file-label">Choose file</label>
                             </div>
                             @if ($post->image == "")
-                            <img class="img-fluid rounded shadow" src="/assets/images/cover/default.png" alt="">
+                            <img class=" img-fluid rounded-lg shadow img-preview" src="/assets/images/cover/default.png"
+                                alt="">
                             @endif
-                            <img class="img-fluid rounded shadow" src="{{$post->image}}" alt="">
+                            <img class="img-fluid rounded-lg shadow img-preview" src="{{$post->image}}" alt="">
                         </div>
-                        <div class="text-muted text-small text-center">
-                            <i> *for better experience, the images should 390px x 610px.</i>
+                        <div class="text-muted text-small text-center mt-3">
+                            <i> *For a better experience, the images is recommended to be A5 (528px x 816px).</i>
                         </div>
                     </div>
                     <div class="grid col-md-8 col-sm-6 col-6 equel-grid">
@@ -43,8 +45,9 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group row showcase_row_area">
-                                                <input hidden type="file" disabled name="image"
-                                                    class="custom-file-input" id="coverFile">
+                                                <input type="hidden" name="old_image" value="{{$post->image}}">
+                                                <input hidden type="file" accept="image/*" onchange="previewImg()"
+                                                    name="image" class="custom-file-input" id="thumbnail">
                                                 <div class="col-md-2 showcase_text_area">
                                                     <label for="inputType1">Title</label>
                                                 </div>
@@ -54,8 +57,8 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row showcase_row_area">
-                                                <input hidden type="file" class="custom-file-input" id="coverFile">
-                                                <div class="col-md-2 showcase_text_area">
+                                                <input hidden type="file" class="custom-file-input">
+                                                <div class=" col-md-2 showcase_text_area">
                                                     <label for="inputType1">Slug</label>
                                                 </div>
                                                 <div class="col-md-10 showcase_content_area">
@@ -73,14 +76,14 @@
                                                 </div>
                                             </div>
                                             <div class="row showcase_row_area">
-                                                <div class="col-md-2 showcase_text_area">
+                                                <div class="col-md-2 mb-3 showcase_text_area">
                                                     <label>Categories</label>
                                                 </div>
                                                 <div class="col-md-10 form-inline">
                                                     @foreach ($category as $c)
-                                                    <div class="col-4 checkbox">
+                                                    <div class="col-4 mb-3 checkbox">
                                                         <label>
-                                                            @if($c->id == $pc[$c->id])
+                                                            @if($pc!=null&&$c->id == $pc[$c->id])
                                                             <input name="{{$c->id}}" type="checkbox" value="{{$c->id}}"
                                                                 checked class="form-check-input">
                                                             @else
