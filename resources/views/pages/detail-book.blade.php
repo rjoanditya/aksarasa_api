@@ -18,9 +18,9 @@
                 <div class="swal" status="success" message="<?= session('success') ?>"></div>
                 @endif
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 col-6">
+                    <div class="col-md-4 col-sm-12 col-12">
                         <div class="d-flex justify-content-center col-md-auto">
-                            <div class="col-md-8 position-absolute pb-4 align-self-end mb-5">
+                            <div class="col-md-8 col-sm-6 col-6 position-absolute pb-4 align-self-end mb-5">
                                 <!-- <label class="btn btn-rounded social-btn btn-behance" for="thumbnail"><i
                                         class="mdi mdi-file-image custom-file-label "></i></label> -->
                                 <label for="thumbnail" class="custom-file-label">Choose file</label>
@@ -35,7 +35,7 @@
                             <i> *For a better experience, the images is recommended to be A5 (528px x 816px).</i>
                         </div>
                     </div>
-                    <div class="grid col-md-8 col-sm-6 col-6 equel-grid">
+                    <div class="grid col-md-8 col-sm-12 col-12 equel-grid">
                         <div class="grid-body">
                             <div class="item-wrapper">
                                 <div class="row mb-3">

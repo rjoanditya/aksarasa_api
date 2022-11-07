@@ -100,8 +100,10 @@ class AuthController extends Controller
             'role'     => $request->role,
             'status'   =>  $request->status
         ];
-        $isUsed = User::where('email', $data['email'])->get()[0];
-        if ($isUsed) {
+        $isUsed = User::where('email', $data['email'])->get();
+        $false = true;
+        $emailcheck = $isUsed === $false;
+        if ($emailcheck == true) {
             if ($request->password != $request->conf_password) {
                 return redirect(route('ak-signup'))->with('message', 'The password does not match!');
             }

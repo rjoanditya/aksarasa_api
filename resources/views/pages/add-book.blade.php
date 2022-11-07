@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="col-md-9 form-inline">
                                                 @foreach ($category as $c)
-                                                <div class="checkbox mb-3">
+                                                <div class="col-3 checkbox mb-3">
                                                     <label>
                                                         <input type="checkbox" name="{{$c->id}}" value="{{$c->id}}"
                                                             class="form-check-input">

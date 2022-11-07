@@ -1,5 +1,17 @@
 @extends('layout/html')
 @section('login')
+<style>
+span#hint {
+    font-weight: 600;
+}
+
+span#hint:hover {
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    background-color: purple;
+}
+</style>
 
 <body>
     <div class="authentication-theme auth-style_1">
@@ -30,18 +42,7 @@
                                     <div class="form-group input-rounded">
                                         <input required type="text" name="username" id="username" class="form-control"
                                             placeholder="Username or Email" />
-                                        <style>
-                                        span#hint {
-                                            font-weight: 600;
-                                        }
 
-                                        span#hint:hover {
-                                            cursor: pointer;
-                                            color: white;
-                                            font-weight: bold;
-                                            background-color: purple;
-                                        }
-                                        </style>
                                         <span id="hint"
                                             class="mt-2 ms-1 hint badge badge-pill badge-light d-none text-small">@gmail.com</span>
                                         <span id="hint"
@@ -50,8 +51,14 @@
                                             class="mt-2 ms-1 hint badge badge-pill badge-light d-none text-small">@aksarasa.id</span>
                                     </div>
                                     <div class="form-group input-rounded">
-                                        <input required type="password" name="password" id="password"
-                                            class="form-control" placeholder="Password" />
+                                        <div class="input-group" id="show_hide_password">
+                                            <input required type="password" name="password" id="password"
+                                                class="form-control" placeholder="Password" />
+                                            <div class="input-group-append align-self-center mx-3">
+                                                <a href=""><i class="mdi mdi-eye-off" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="form-inline">
                                         <div class="checkbox">
@@ -133,6 +140,20 @@
             $('.hint').attr('class', hint + ' d-none')
         });
     }
+    $(document).ready(function() {
+        $("#show_hide_password a").click(function(event) {
+            event.preventDefault();
+            if ($('#show_hide_password input').attr("type") == "text") {
+                $('#show_hide_password input').attr('type', 'password');
+                $('#show_hide_password i').addClass("mdi-eye-off");
+                $('#show_hide_password i').removeClass("mdi-eye");
+            } else if ($('#show_hide_password input').attr("type") == "password") {
+                $('#show_hide_password input').attr('type', 'text');
+                $('#show_hide_password i').removeClass("mdi-eye-off");
+                $('#show_hide_password i').addClass("mdi-eye");
+            }
+        });
+    });
     </script>
 </body>
 
