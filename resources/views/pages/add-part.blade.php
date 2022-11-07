@@ -72,9 +72,8 @@ if (isset($_GET['submit_text'])) {
                 </div>
             </div>
         </div>
-    </div>
-    <!-- content viewport ends -->
-    @include('/layout/partials/_footer')
+        <!-- content viewport ends -->
+        @include('/layout/partials/_footer')
     </div>
     <!-- page content ends -->
     </div>

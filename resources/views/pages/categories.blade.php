@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-12 item-wrapper">
                         <div class="table-responsive">
-                            <table class="table info-table">
+                            <table id="myTable" class="table info-table">
                                 <thead>
                                     <tr>
                                         <th>Name</th>

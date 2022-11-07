@@ -10,6 +10,12 @@
  <!-- build:js -->
  <script src="/assets/js/template.js"></script>
  <script src="/assets/js/dashboard.js"></script>
+
+ <!-- Datatables -->
+ <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+ <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
  <!-- endbuild -->
  <!-- build:ckeditor -->
  <script>
@@ -17,24 +23,6 @@ ClassicEditor.create(document.getElementById('inputEditor'))
     .catch(error => {
         console.error(error);
     });
-
-// let theEditor;
-// ClassicEditor.create(document.querySelector("#inputEditor"), {
-//         ckfinder: {},
-//         mediaEmbed: {
-//             previewsInData: true
-//         },
-//     })
-//     .then((editor) => {
-//         theEditor = editor;
-//     })
-//     .catch((error) => {
-//         console.error(error);
-//     });
-
-// function getDataFromTheEditor() {
-//     return theEditor.getData();
-// }
  </script>
  <script>
 let message = $(".swal").attr('message')
@@ -83,4 +71,14 @@ function previewImg() {
         imgPreview.src = e.target.result;
     }
 }
+ </script>
+ <script>
+$(document).ready(function() {
+    $('#myTable').DataTable({
+        // paging: false,
+        ordering: false,
+        info: false,
+    });
+
+});
  </script>
