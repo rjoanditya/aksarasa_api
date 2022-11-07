@@ -384,6 +384,23 @@ class Controller extends BaseController
     {
         return view('pages/list-audiobook');
     }
+
+    /** 
+     * User
+     * ================================================================================================================================================================== 
+     */
+
+    public function getUser()
+    {
+        $count = [];
+        $users = User::get();
+        $counts = Post::get();
+        $i = 1;
+        foreach ($users as $user) {
+            $count[] = $counts->where('created_by', $user->id);
+        }
+        return view('pages/users', compact('users', 'counts'));
+    }
     // public function login()
     // {
     //     return view('auth/login');

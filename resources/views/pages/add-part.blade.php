@@ -42,19 +42,6 @@ if (isset($_GET['submit_text'])) {
                                                         id="inputType1" placeholder="Title of Part" required>
                                                 </div>
                                             </div>
-                                            <div class="row showcase_row_area mb-4">
-                                                <div class="col-md-1 showcase_text_area">
-                                                    <label>Audio</label>
-                                                </div>
-                                                <div class="col-md-11 showcase_content_area">
-                                                    <div class="custom-file">
-                                                        <input type="file" name="audio" accept="audio/*"
-                                                            class="custom-file-input" id="customFile">
-                                                        <label class="custom-file-label" for="customFile">Choose
-                                                            file</label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="form-group row showcase_row_area">
                                                 <div class="col-md-1 showcase_text_area">
                                                     <label for="inputEditor">Content<span

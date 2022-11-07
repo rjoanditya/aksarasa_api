@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SitemapXmlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ use App\Http\Controllers\Controller;
  * /books/part/(id)
  */
 
+// Sitemap
+Route::get('/sitemap.xml', [SitemapXmlController::class, 'index']);
 
 Route::get('/', [AuthController::class, 'dashboard']);
 Route::get('login', [AuthController::class, 'login'])->name('ak-login');
@@ -82,5 +85,7 @@ Route::group(['middleware' => 'IsLoggedInMiddleware'], function () {
         Route::post('/adding-part', [Controller::class, 'storeParts'])->name('adding-part');
         Route::delete('/trash-part/{id}', [Controller::class, 'destroyParts'])->name('destroyParts');
         Route::put('/updated/part/{id}', [Controller::class, 'updatedParts'])->name('updatedParts');
+
+        Route::get('/authors', [Controller::class, 'getUser'])->name('authors');
     });
 });

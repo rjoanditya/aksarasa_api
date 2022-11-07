@@ -56,8 +56,8 @@
                 </ul>
             </li>
 
-            <!-- <li class="nav-category-divider">AUTH</li>
-            <li>
+            <li class="nav-category-divider">AUTH</li>
+            <!-- <li>
                 <a href="#">
                     <span class="link-title">Administrators</span>
                     <i class="mdi mdi-account-key link-icon"></i>
@@ -68,13 +68,13 @@
                     <span class="link-title">Narrators</span>
                     <i class="mdi mdi-account-star link-icon"></i>
                 </a>
-            </li>
+            </li> -->
             <li>
-                <a href="#">
+                <a href="{{route('authors')}}">
                     <span class="link-title">Authors</span>
                     <i class="mdi mdi-account link-icon"></i>
                 </a>
-            </li> -->
+            </li>
         </ul>
         <div class="sidebar-upgrade-banner">
             <a class="btn upgrade-btn" href="{{route('logout')}}"> <i class="pr-3 mdi mdi-logout-variant"></i>Log
